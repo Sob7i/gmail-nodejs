@@ -1,12 +1,12 @@
-import printMessages  from '../lib/processMsgs.js';
+import printMessages from '../lib/processMsgs.js';
+import { oAuth2Client } from '../authClient.js'
 
 export default async function getMessages(req, res) {
-
   try {
-    const { access_token } = JSON.parse(req.headers.authorization)
-    console.log(`access_token`, access_token)
+    const { userId } = req
+    const messages = await printMessages(oAuth2Client, userId)
 
-    printMessages()
+    return res.status(200).json({ messages })
 
   } catch (error) {
     res.json(error.message)

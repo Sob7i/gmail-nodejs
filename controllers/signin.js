@@ -1,25 +1,15 @@
-import { google } from 'googleapis';
-import dotenv from 'dotenv'
-dotenv.config()
-
 import { getNewToken, verifyUser } from '../lib/authorize.js';
+import { oAuth2Client } from '../authClient.js'
 import { createUser } from '../db.js'
-
-const {
-  GMAIL_CLIENT_ID,
-  GMAIL_CLIENT_SECRET,
-  GMAIL_REDIRECT_URL
-} = process.env
 
 export default async function signin(req, res) {
   try {
+    // if (req.getHeader("X-Requested-With") == null) {
+    //   res.status(400)
+    //   res.json({ message: 'Invalid Request' })
+    // }
+
     const { code } = JSON.parse(req.headers.authorization)
-
-    const oAuth2Client = new google.auth.OAuth2(
-      GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REDIRECT_URL,
-    );
-
-    google.options({ auth: oAuth2Client });
 
     const googleToken = await getNewToken(code, oAuth2Client)
 
@@ -28,12 +18,13 @@ export default async function signin(req, res) {
     const user = await verifyUser(googleToken.id_token, oAuth2Client)
 
     const newUser = {
-      access_token: googleToken?.access_token,
-      refresh_token: googleToken?.refresh_token,
-      scope: googleToken?.scope,
-      token_type: googleToken?.token_type,
-      id_token: googleToken?.id_token,
-      expiry_date: googleToken?.expiry_date,
+      // access_token: googleToken?.access_token,
+      // refresh_token: googleToken?.refresh_token,
+      // scope: googleToken?.scope,
+      // token_type: googleToken?.token_type,
+      // id_token: googleToken?.id_token,
+      // expiry_date: googleToken?.expiry_date,
+      googleTokenObj: googleToken,
       sub: user?.sub,
       email: user?.email,
       name: user?.name,
@@ -46,17 +37,16 @@ export default async function signin(req, res) {
 
     const createdUser = await createUser(newUser);
 
-    res.status(200)
-    res.json({
-      access_token: createdUser.access_token,
+    return res.status(200).json({
+      access_token: createdUser.googleTokenObj.access_token,
       email: createdUser.email,
       name: createdUser.name,
       picture: createdUser.picture,
       given_name: createdUser.given_name
     })
 
-    next()
   } catch (error) {
-    res.json(error.message)
+    res.status(400).json(error.message)
+    return
   }
 }
