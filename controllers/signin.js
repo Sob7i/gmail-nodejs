@@ -4,6 +4,7 @@ import { createUser } from '../db.js'
 
 export default async function signin(req, res) {
   try {
+    // TODO add middleware security headers
     // if (req.getHeader("X-Requested-With") == null) {
     //   res.status(400)
     //   res.json({ message: 'Invalid Request' })
@@ -18,12 +19,6 @@ export default async function signin(req, res) {
     const user = await verifyUser(googleToken.id_token, oAuth2Client)
 
     const newUser = {
-      // access_token: googleToken?.access_token,
-      // refresh_token: googleToken?.refresh_token,
-      // scope: googleToken?.scope,
-      // token_type: googleToken?.token_type,
-      // id_token: googleToken?.id_token,
-      // expiry_date: googleToken?.expiry_date,
       googleTokenObj: googleToken,
       sub: user?.sub,
       email: user?.email,
