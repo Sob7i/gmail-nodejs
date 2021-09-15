@@ -1,5 +1,5 @@
-import { gmail } from '../authClient.js'
-import { getUserById } from '../db.js'
+import { gmail } from '../config/auth.js'
+import { getUserById } from '../config/db.js'
 
 function listMessages(query) {
   return new Promise((resolve, reject) => {

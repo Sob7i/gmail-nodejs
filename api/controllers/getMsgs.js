@@ -1,5 +1,5 @@
-import printMessages from '../lib/processMsgs.js';
-import { oAuth2Client } from '../authClient.js'
+import printMessages from '../../services/processMsgs.js';
+import { oAuth2Client } from '../../config/auth.js'
 
 export default async function getMessages(req, res) {
   try {

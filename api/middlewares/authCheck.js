@@ -1,4 +1,4 @@
-import { oAuth2Client } from '../authClient.js'
+import { oAuth2Client } from '../../config/auth.js'
 
 export default async function (req, res, next) {
   try {

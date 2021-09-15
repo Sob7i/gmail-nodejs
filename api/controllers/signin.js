@@ -1,6 +1,6 @@
-import { getNewToken, verifyUser } from '../lib/authorize.js';
-import { oAuth2Client } from '../authClient.js'
-import { createUser } from '../db.js'
+import { getNewToken, verifyUser } from '../../services/authorize.js';
+import { oAuth2Client } from '../../config/auth.js'
+import { createUser } from '../../config/db.js'
 
 export default async function signin(req, res) {
   try {

@@ -1,9 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 
-import signin from './routes/signin.js'
-import messages from './routes/messages.js'
-import authCheck from './routes/authCheck.js'
+import signin from './api/routes/signin.js'
+import messages from './api/routes/messages.js'
+import authCheck from './api/routes/authCheck.js'
 
 const app = express()
 const port = process.env.PORT || '5000'
