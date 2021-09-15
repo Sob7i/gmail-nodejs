@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -r dotenv/config server.js dotenv_config_path=./.env.local",
+    "start": "nodemon -r dotenv/config app.js dotenv_config_path=./config/.env.local",
     "lint": "eslint"
   },
   "author": "",
