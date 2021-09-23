@@ -1,3 +1,4 @@
+// This file is only for future reference, as a POC of using mongo driver
 import pkg from 'mongodb'
 import dotenv from 'dotenv'
 dotenv.config()

@@ -9,6 +9,6 @@ export default async function getMessages(req, res) {
     return res.status(200).json({ messages })
 
   } catch (error) {
-    res.json(error.message)
+    res.status(400).json(error.message)
   }
 }
