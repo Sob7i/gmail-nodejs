@@ -17,23 +17,24 @@ export async function checkIfUserExist(id) {
   return true
 }
 
-export async function getUserData(user, googleToken) {
+export async function getUserStoredData(newUser, googleToken) {
   let access_token = ''
   let given_name = ''
 
   try {
-    const userExist = await checkIfUserExist(user.sub)
+    const userExist = await checkIfUserExist(newUser.sub)
 
     if (userExist) {
-      const updatedUser = await updateUser(user, googleToken);
+      const updatedUser = await updateUser(newUser, googleToken);
       given_name = updatedUser.given_name
       access_token = updatedUser.googleTokenObj.access_token
     }
     else {
-      const createdUser = await createUser(user, googleToken);
+      const createdUser = await createUser(newUser, googleToken);
       given_name = createdUser.given_name
       access_token = createdUser.googleTokenObj.access_token
     }
+    
     if (!given_name || !access_token)
       throw new Error('Could not find or create a user')
 

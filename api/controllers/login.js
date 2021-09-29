@@ -1,6 +1,6 @@
 import { getNewToken, verifyUser } from '../../services/authorize.js';
 import { oAuth2Client } from '../../config/auth.js'
-import { getUserData } from '../../db/actions/getUser.js'
+import { getUserStoredData } from '../../db/actions/getUser.js'
 
 export default async function login(req, res, next) {
   // TODO add middleware security headers
@@ -21,7 +21,10 @@ export default async function login(req, res, next) {
     const verifiedUser = await verifyUser(googleToken.id_token, oAuth2Client)
 
     /* Retrieving user's stored data */
-    const { access_token, given_name } = await getUserData(verifiedUser, googleToken)
+    const {
+      access_token,
+      given_name
+    } = await getUserStoredData(verifiedUser, googleToken)
 
     /* Sending back a success response */
     return res.status(200).json({
