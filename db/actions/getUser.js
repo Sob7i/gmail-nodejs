@@ -13,8 +13,8 @@ export default async function getUserById(id) {
 
 export async function checkIfUserExist(id) {
   const result = await User.findOne({ "sub": id })
-  if (!!result.sub) return true
-  return false
+  if (!result.sub) return false
+  return true
 }
 
 export async function getUserData(user, googleToken) {
