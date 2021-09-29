@@ -4,7 +4,7 @@ export async function getNewToken(authCode, oAuth2Client) {
     return tokens;
 
   } catch (error) {
-    console.error('Error exchanging code with new token', error)
+    throw new Error('Error exchanging code with new token', error)
   }
 }
 
@@ -20,6 +20,6 @@ export async function verifyUser(idToken, oAuth2Client) {
     return userProfile
 
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error('Error verifying user', error.message)
   }
 }

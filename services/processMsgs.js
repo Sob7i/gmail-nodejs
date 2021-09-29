@@ -1,7 +1,8 @@
 import { gmail } from '../config/auth.js'
-import { getUserById } from '../config/db.js'
+import getUserById from '../db/actions/getUser.js'
 
-function listMessages(query) {
+// TODO convert to async function
+function listMsgs(query) {
   return new Promise((resolve, reject) => {
     gmail.users.messages.list(
       {
@@ -21,7 +22,7 @@ function listMessages(query) {
   });
 }
 
-const getMsgById = async (id) => {
+async function getMsgById(id) {
   if (!id) throw new Error('msg id is required');
   try {
     const messageObj = await gmail.users.messages.get({
@@ -36,7 +37,7 @@ const getMsgById = async (id) => {
   }
 }
 
-const deleteMsg = async (id) => {
+async function deleteMsg(id) {
   if (!id) throw new Error('msg id is required');
   try {
     const messageObj = await gmail.users.messages.delete({
@@ -51,14 +52,13 @@ const deleteMsg = async (id) => {
   }
 }
 
-// Print out msgs
-export default async function printMessages(oAuth2Client, userId) {
+export default async function getUserMsgs(oAuth2Client, userId) {
   const user = await getUserById(userId)
   const { googleTokenObj } = user
 
   oAuth2Client.setCredentials(googleTokenObj)
 
-  const messagesRef = await listMessages('label:all')
+  const messagesRef = await listMsgs('label:all')
     .catch(err => {
       return console.error('Error listing messages', err)
     });
