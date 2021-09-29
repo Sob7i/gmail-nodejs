@@ -1,5 +1,5 @@
 import { gmail } from '../config/auth.js'
-import { getUserById } from '../config/db.js'
+import getUserById from '../db/actions/getUser.js'
 
 function listMessages(query) {
   return new Promise((resolve, reject) => {
@@ -52,7 +52,7 @@ const deleteMsg = async (id) => {
 }
 
 // Print out msgs
-export default async function printMessages(oAuth2Client, userId) {
+export default async function getUserMessages(oAuth2Client, userId) {
   const user = await getUserById(userId)
   const { googleTokenObj } = user
 

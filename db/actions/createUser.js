@@ -1,4 +1,4 @@
-import User from '../../db/models/user.js'
+import User from '../models/user.js'
 
 async function createUser(user, googleToken) {
   try {
@@ -18,7 +18,7 @@ async function createUser(user, googleToken) {
 
     return result
   } catch (error) {
-    return res.json({ message: 'Error creating a user' })
+    throw new Error(`Error creating a user: ${error}`)
   }
 }
 
