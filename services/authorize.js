@@ -1,6 +1,6 @@
-export async function getNewToken(authCode, oAuth2Client) {
+export async function getNewToken(authCode, OAuth2Client) {
   try {
-    const { tokens } = await oAuth2Client.getToken(authCode)
+    const { tokens } = await OAuth2Client.getToken(authCode)
     return tokens;
 
   } catch (error) {
@@ -8,9 +8,9 @@ export async function getNewToken(authCode, oAuth2Client) {
   }
 }
 
-export async function verifyUser(idToken, oAuth2Client) {
+export async function verifyUser(idToken, OAuth2Client) {
   try {
-    const ticket = await oAuth2Client.verifyIdToken({
+    const ticket = await OAuth2Client.verifyIdToken({
       idToken: idToken,
       audience: process.env.GMAIL_CLIENT_ID
     })

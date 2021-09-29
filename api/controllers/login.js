@@ -1,5 +1,5 @@
 import { getNewToken, verifyUser } from '../../services/authorize.js';
-import { oAuth2Client } from '../../config/auth.js'
+import { OAuth2Client } from '../../config/auth.js'
 import { getUserStoredData } from '../../db/actions/getUser.js'
 
 export default async function login(req, res, next) {
@@ -15,10 +15,10 @@ export default async function login(req, res, next) {
 
   try {
     /* Retrieving new token using google auth sdk */
-    const googleToken = await getNewToken(code, oAuth2Client)
+    const googleToken = await getNewToken(code, OAuth2Client)
 
     /* Verifying the user using id token */
-    const verifiedUser = await verifyUser(googleToken.id_token, oAuth2Client)
+    const verifiedUser = await verifyUser(googleToken.id_token, OAuth2Client)
 
     /* Retrieving user's stored data */
     const {
