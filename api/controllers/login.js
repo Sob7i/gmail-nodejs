@@ -1,6 +1,6 @@
 import { getNewToken, verifyUser } from '../../services/authorize.js';
-import { OAuth2Client } from '../../config/auth.js'
 import { getUserStoredData } from '../../db/actions/getUser.js'
+import { OAuth2Client } from '../../config/auth.js'
 
 export default async function login(req, res, next) {
   // TODO add middleware security headers

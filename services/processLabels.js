@@ -1,7 +1,6 @@
 import { google } from 'googleapis';
 
 const gmail = google.gmail({ version: 'v1' });
-
 export const getLabels = async () => {
   try {
     const res = await gmail.users.labels.list({
@@ -14,8 +13,5 @@ export const getLabels = async () => {
     return console.log(`Error fetching lebels: ${error}`)
   }
 }
-
 export const getLabelsId = (lables) => (lables ?? [])
   .map(lable => lable.id)
-
-
