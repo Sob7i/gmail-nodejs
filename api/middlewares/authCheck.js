@@ -12,7 +12,9 @@ export default async function (req, res, next) {
       req.userId = verifyToken.sub
       next()
     }
-    return
+    else {
+      return res.status(401).json('Wrong credentials!')
+    }
   } catch (error) {
     console.error('middleware auth error', error)
     res.status(401).json('Wrong credentials!')
